@@ -1,0 +1,77 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Form verilerini al
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $message = htmlspecialchars($_POST['message']);
+
+    // E-posta ayarları
+    $to = "Hexenoplayground@gmail.com"; // Buraya kendi e-posta adresinizi ekledik
+    $subject = "Yeni Geri Bildirim: $name";
+    $headers = "From: $email" . "\r\n" .
+               "Reply-To: $email" . "\r\n" .
+               "X-Mailer: PHP/" . phpversion();
+
+    // E-posta içeriği
+    $email_message = "Ad: $name\nE-posta: $email\n\nMesaj:\n$message";
+
+    // E-posta gönder
+    if (mail($to, $subject, $email_message, $headers)) {
+        $result = "Geri bildiriminiz başarıyla gönderildi.";
+    } else {
+        $result = "Geri bildirim gönderilemedi. Lütfen tekrar deneyin.";
+    }
+} else {
+    $result = "";
+}
+?>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexeno - Kişisel Web Sayfası</title>
+    <style>
+        /* CSS kodları buraya */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hexeno</h1>
+        <p>Playground & Dublaj</p>
+    </header>
+    <div class="container">
+        <div class="section">
+            <h2>Hakkında</h2>
+            <p>Merhaba, biz Hexeno. Sizin için 2024'ten beri video yapıyoruz. Sizi eğlendirmeye çalışıyor ve eğlenceli içerikler sunuyoruz.</p>
+        </div>
+        <div class="section banner-editor">
+            <h2>Banner ve Editör</h2>
+            <p>Hexeno, sadece videolar üretmekle kalmıyor, aynı zamanda kanalımızın banner tasarımlarını ve video düzenlemelerini de kendimiz yapıyoruz. Yaratıcı içerikler sunmanın yanı sıra, kanalımızın görsel kimliğini güçlendiriyoruz. Banner ve editör olarak, kanalımızın profesyonel görünümünü ve kalitesini artırıyoruz. Ayrıca, YouTube banner taleplerinizi de değerlendiriyoruz.</p>
+        </div>
+        <div class="section video-gallery">
+            <h2>Video Galerisi</h2>
+            <iframe src="https://www.youtube.com/embed/3y57k34ZUmE" title="Video 1"></iframe>
+            <iframe src="https://www.youtube.com/embed/6up0_b8dhcY" title="Video 2"></iframe>
+            <iframe src="https://www.youtube.com/embed/J5Y5aw5YLtg" title="Video 3"></iframe>
+            <iframe src="https://www.youtube.com/embed/QF3fZ15cCG8" title="Video 4"></iframe>
+        </div>
+        <div class="section feedback-form">
+            <h2>Geri Bildirim Bırakın</h2>
+            <form action="" method="post">
+                <input type="text" name="name" placeholder="Adınız" required>
+                <input type="email" name="email" placeholder="E-posta Adresiniz" required>
+                <textarea name="message" placeholder="Mesajınız" required></textarea>
+                <button type="submit">Gönder</button>
+            </form>
+            <?php if ($result): ?>
+                <p><?php echo $result; ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Hexeno. Tüm hakları saklıdır. <a href="#">İletişim</a></p>
+    </footer>
+</body>
+                                                                                                                                                                                                                                                                                                                                                                                                 
